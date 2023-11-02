@@ -18,8 +18,8 @@ public class Employee {
     private List<Address> addressList;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "email_id")
-    private Email email;
+    @JoinColumn(name = "workstation_id")
+    private Workstation workstation;
 
     public Integer getId() {
         return id;
@@ -45,12 +45,12 @@ public class Employee {
         this.addressList = address;
     }
 
-    public Email getEmail() {
-        return email;
+    public Workstation getWorkstation() {
+        return workstation;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setWorkstation(Workstation workstation) {
+        this.workstation = workstation;
     }
 
 }

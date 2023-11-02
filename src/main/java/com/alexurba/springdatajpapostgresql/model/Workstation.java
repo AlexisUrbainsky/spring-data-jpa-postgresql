@@ -3,14 +3,14 @@ package com.alexurba.springdatajpapostgresql.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name= "email")
-public class Email {
+@Table(name= "workstation")
+public class Workstation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String emailDesc;
+    private String description;
 
     public Integer getId() {
         return id;
@@ -20,11 +20,11 @@ public class Email {
         this.id = id;
     }
 
-    public String getEmailDesc() {
-        return emailDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEmailDesc(String email) {
-        this.emailDesc = email;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
