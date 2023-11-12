@@ -1,5 +1,6 @@
 package com.alexurba.springdatajpapostgresql.service;
 
+import com.alexurba.springdatajpapostgresql.exception.EmployeeNotFoundException;
 import com.alexurba.springdatajpapostgresql.model.Employee;
 import com.alexurba.springdatajpapostgresql.repository.EmployeeRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class EmployeeService {
     public EmployeeRepositoryCustom employeeRepository;
 
     public Optional<Employee> FindById(Integer id){
-        return employeeRepository.findById(id);
+        return Optional.ofNullable(employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException("Employee not found")));
     }
 
     public Employee Save(Employee employee){

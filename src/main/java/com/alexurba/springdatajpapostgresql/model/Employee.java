@@ -1,16 +1,19 @@
 package com.alexurba.springdatajpapostgresql.model;
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.List;
 
 @Entity
 @Table(name = "employee")
-public class Employee {
+public class Employee  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private  Integer id;
+
+    @NotNull
     private  String name;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -20,6 +23,18 @@ public class Employee {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "workstation_id")
     private Workstation workstation;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+    @JoinTable(name = "employees_projects", joinColumns = @JoinColumn(name = "id_employee"),  inverseJoinColumns = @JoinColumn(name = "id_project") )
+    private List<Project> projectList;
+
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
+    }
 
     public Integer getId() {
         return id;

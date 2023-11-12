@@ -1,10 +1,10 @@
 package com.alexurba.springdatajpapostgresql.repository;
 
-import com.alexurba.springdatajpapostgresql.model.Workstation;
+import com.alexurba.springdatajpapostgresql.model.Project;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WorkstationRepositoryCustom extends CrudRepository<Workstation, Integer> {
+public interface ProjectRepositoryCustom extends CrudRepository <Project, Integer> {
 
 }
