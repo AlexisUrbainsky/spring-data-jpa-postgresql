@@ -1,5 +1,6 @@
 package com.alexurba.springdatajpapostgresql.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,14 +20,14 @@ public class EmployeeExceptionHandler{
     */
 
     @ExceptionHandler(EmployeeNotFoundException.class)
-    public ResponseEntity<CustomErrorResponse> employeeNotFound(EmployeeNotFoundException ex){
+    public ResponseEntity<CustomErrorResponse> employeeNotFound(EmployeeNotFoundException ex, HttpServletRequest request){
         CustomErrorResponse error = new CustomErrorResponse();
         error.setError(ex.getMessage());
         error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setTimestamp(LocalDateTime.now());
+        error.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
-
 
 }

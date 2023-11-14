@@ -9,6 +9,16 @@ public class CustomErrorResponse {
     private String error;
     private Integer status;
 
+    private String path;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
