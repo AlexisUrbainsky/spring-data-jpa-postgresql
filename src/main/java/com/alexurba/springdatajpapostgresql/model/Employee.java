@@ -1,7 +1,6 @@
 package com.alexurba.springdatajpapostgresql.model;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class Employee  {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private  Integer id;
 
-    @NotNull
+    @Column(nullable = false)
     private  String name;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

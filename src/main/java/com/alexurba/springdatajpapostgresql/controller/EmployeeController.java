@@ -5,16 +5,14 @@ import com.alexurba.springdatajpapostgresql.model.Project;
 import com.alexurba.springdatajpapostgresql.service.EmployeeService;
 import com.alexurba.springdatajpapostgresql.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import static org.springframework.http.HttpStatus.*;
 
-import static org.springframework.http.HttpStatus.ACCEPTED;
 
 @RestController
 @RequestMapping("/employee")
@@ -26,12 +24,8 @@ public class EmployeeController {
     public ProjectService projectService;
 
     @PostMapping
-    public Employee SaveEmployee(@RequestBody Employee employee) {
-        try {
-            return employeeService.Save(employee);
-        }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-        }
+    public ResponseEntity<Employee> SaveEmployee(@RequestBody Employee employee) {
+            return new ResponseEntity<>(employeeService.Save(employee), CREATED);
     }
 
     @GetMapping("/{id}")

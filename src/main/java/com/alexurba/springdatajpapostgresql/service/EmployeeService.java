@@ -5,7 +5,6 @@ import com.alexurba.springdatajpapostgresql.model.Employee;
 import com.alexurba.springdatajpapostgresql.repository.EmployeeRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
