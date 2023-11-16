@@ -12,6 +12,13 @@ public class Workstation {
 
     private String description;
 
+    public Workstation(){}
+
+    public Workstation(Integer id, String description){
+        this.id = id;
+        this.description = description;
+    }
+
     public Integer getId() {
         return id;
     }

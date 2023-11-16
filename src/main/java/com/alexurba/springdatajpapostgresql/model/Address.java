@@ -14,6 +14,16 @@ public class Address {
     private String street;
     private Integer number;
 
+    public Address(){
+
+    }
+
+    public Address(Integer id, String street, Integer number){
+        this.id = id;
+        this.street = street;
+        this.number = number;
+    }
+
     public Integer getId() {
         return id;
     }

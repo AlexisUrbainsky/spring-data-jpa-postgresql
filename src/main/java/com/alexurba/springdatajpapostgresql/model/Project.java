@@ -1,6 +1,5 @@
 package com.alexurba.springdatajpapostgresql.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -21,6 +20,13 @@ public class Project implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(name = "employees_projects", joinColumns = @JoinColumn(name = "id_project"), inverseJoinColumns = @JoinColumn(name = "id_employee"))
     private List<Employee> employeeList;
+
+    public Project(){}
+
+    public Project(Integer id, String name){
+        this.id = id;
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

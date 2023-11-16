@@ -27,6 +27,13 @@ public class Employee  {
     @JoinTable(name = "employees_projects", joinColumns = @JoinColumn(name = "id_employee"),  inverseJoinColumns = @JoinColumn(name = "id_project") )
     private List<Project> projectList;
 
+    public Employee(){}
+
+    public Employee(Integer id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     public List<Project> getProjectList() {
         return projectList;
     }

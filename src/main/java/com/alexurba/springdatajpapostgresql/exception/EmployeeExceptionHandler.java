@@ -30,4 +30,15 @@ public class EmployeeExceptionHandler{
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<CustomErrorResponse> invalidRequestException(InvalidRequestException ex, HttpServletRequest request){
+        CustomErrorResponse error = new CustomErrorResponse();
+        error.setError(ex.getMessage());
+        error.setTimestamp(LocalDateTime.now());
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setPath(request.getRequestURI());
+
+        return new ResponseEntity<CustomErrorResponse>(error, HttpStatus.BAD_REQUEST);
+    }
+
 }
