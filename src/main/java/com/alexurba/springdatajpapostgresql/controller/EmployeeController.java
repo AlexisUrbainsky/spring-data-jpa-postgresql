@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import static org.springframework.http.HttpStatus.*;
 
 
@@ -52,6 +53,11 @@ public class EmployeeController {
 
         return new ResponseEntity<>(employeeService.Save(employee), ACCEPTED);
 
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Employee>> GetAll() {
+        return new ResponseEntity<List<Employee>>(employeeService.GetAll(), FOUND);
     }
 
 }
