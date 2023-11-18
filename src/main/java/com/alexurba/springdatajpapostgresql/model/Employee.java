@@ -1,10 +1,16 @@
 package com.alexurba.springdatajpapostgresql.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "employee")
 public class Employee  {
 
@@ -27,12 +33,6 @@ public class Employee  {
     @JoinTable(name = "employees_projects", joinColumns = @JoinColumn(name = "id_employee"),  inverseJoinColumns = @JoinColumn(name = "id_project") )
     private List<Project> projectList;
 
-    public Employee(){}
-
-    public Employee(Integer id, String name){
-        this.id = id;
-        this.name = name;
-    }
 
     public List<Project> getProjectList() {
         return projectList;

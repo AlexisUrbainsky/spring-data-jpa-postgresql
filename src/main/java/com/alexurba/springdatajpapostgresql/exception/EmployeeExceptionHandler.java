@@ -27,6 +27,8 @@ public class EmployeeExceptionHandler{
         error.setTimestamp(LocalDateTime.now());
         error.setPath(request.getRequestURI());
 
+        ex.printStackTrace();
+
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -37,6 +39,8 @@ public class EmployeeExceptionHandler{
         error.setTimestamp(LocalDateTime.now());
         error.setStatus(HttpStatus.BAD_REQUEST.value());
         error.setPath(request.getRequestURI());
+
+        ex.printStackTrace();
 
         return new ResponseEntity<CustomErrorResponse>(error, HttpStatus.BAD_REQUEST);
     }

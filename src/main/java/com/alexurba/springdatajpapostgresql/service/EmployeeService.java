@@ -15,7 +15,7 @@ public class EmployeeService {
     @Autowired
     public EmployeeRepositoryCustom employeeRepository;
 
-    public Optional<Employee> FindById(Integer id){
+    public Optional<Employee> FindById(Integer id) {
         return Optional.ofNullable(employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException("Employee not found")));
     }
 
