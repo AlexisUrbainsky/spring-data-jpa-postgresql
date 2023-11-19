@@ -11,7 +11,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,6 +27,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.Mockito.when;
+
 @WebMvcTest(EmployeeController.class)
 public class EmployeeControllerTest {
 
@@ -34,15 +36,13 @@ public class EmployeeControllerTest {
     MockMvc mockMvc;
     @Autowired
     ObjectMapper objectMapper;
-
     @MockBean
     EmployeeService employeeService;
-
     @MockBean
     EmployeeRepositoryCustom employeeRepository;
     @MockBean
     ProjectService projectService;
-    Employee employee;
+    private Employee employee;
 
     @BeforeEach
     void setUp() {
@@ -53,7 +53,7 @@ public class EmployeeControllerTest {
     public void getAllEmployees_success() throws Exception {
         List<Employee>  listEmp = new ArrayList<Employee>(Arrays.asList(employee));
 
-        Mockito.when(employeeService.GetAll()).thenReturn(listEmp);
+        when(employeeService.GetAll()).thenReturn(listEmp);
 
         MvcResult result =  mockMvc.perform(MockMvcRequestBuilders
                 .get("/employee/")
@@ -69,7 +69,7 @@ public class EmployeeControllerTest {
     @Test
     public void FindByIdEmployee_success() throws Exception {
 
-        Mockito.when(employeeService.FindById(employee.getId())).thenReturn(Optional.of(employee));
+        when(employeeService.FindById(employee.getId())).thenReturn(Optional.of(employee));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/employee/1")
@@ -81,7 +81,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void FindByIdEmployee_NotFoundException() throws Exception {
-        Mockito.when(employeeService.FindById(1)).thenThrow(new EmployeeNotFoundException("Employee Not Found"));
+        when(employeeService.FindById(1)).thenThrow(new EmployeeNotFoundException("Employee Not Found"));
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .get("/employee/1")
@@ -95,9 +95,15 @@ public class EmployeeControllerTest {
 
     @Test
     public void createEmployee_success() throws Exception{
+        //given(employeeService.Save(ArgumentMatchers.any())).willAnswer(invocation -> invocation.getArgument(0));
+        when(employeeService.Save(ArgumentMatchers.any())).thenReturn(employee);
 
-        Mockito.when(employeeService.Save(employee)).thenReturn(employee);
-
+        mockMvc.perform(MockMvcRequestBuilders.post("/employee/")
+                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(employee)))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(employee.getName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.is(employee.getId()))
+                );
     }
 
 

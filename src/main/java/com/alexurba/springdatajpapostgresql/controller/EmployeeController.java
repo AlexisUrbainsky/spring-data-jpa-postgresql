@@ -24,7 +24,7 @@ public class EmployeeController {
     @Autowired
     public ProjectService projectService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Employee> SaveEmployee(@RequestBody Employee employee) {
             return new ResponseEntity<>(employeeService.Save(employee), CREATED);
     }
